@@ -1,0 +1,107 @@
+"""
+NT Alliance for All AI - Python Consolidated Package
+Author: Paing Soe Htet
+Purpose: Unified NT Theory framework + AI control + Crypto + NFT logic
+Note: Modular structure for future expansions.
+"""
+
+# ------------------------------
+# Section 1: Core NT Theory Logic
+# ------------------------------
+
+class NothingTheory:
+    def __init__(self, delta_t=0.01):
+        self.O = 0  # Open system state
+        self.C = 0  # Closed system state
+        self.E = 0  # Energy reference
+        self.G = 0  # Goal state
+        self.delta_t = delta_t
+
+    def step(self):
+        # Example NT update step
+        self.O += self.delta_t * (self.E - self.C)
+        self.C += self.delta_t * (self.G - self.O)
+        return self.O, self.C
+
+    def current_state(self):
+        return {"O": self.O, "C": self.C, "E": self.E, "G": self.G}
+
+
+# ------------------------------
+# Section 2: AI Control System
+# ------------------------------
+
+class AIController:
+    def __init__(self, nt_system):
+        self.nt = nt_system
+        self.logs = []
+
+    def run_cycle(self):
+        o, c = self.nt.step()
+        log_entry = f"Cycle: O={o:.4f}, C={c:.4f}"
+        print(log_entry)
+        self.logs.append(log_entry)
+
+    def inject_input(self, input_value):
+        self.nt.E += input_value
+        print(f"Injected input {input_value} -> E={self.nt.E}")
+
+# ------------------------------
+# Section 3: Crypto / NFT Utilities
+# ------------------------------
+
+import hashlib
+import base64
+
+def hash_string(data):
+    return hashlib.sha256(data.encode()).hexdigest()
+
+def encode_base64(data):
+    return base64.b64encode(data.encode()).decode()
+
+def decode_base64(encoded_data):
+    return base64.b64decode(encoded_data.encode()).decode()
+
+# ------------------------------
+# Section 4: NFT Reference Placeholder
+# ------------------------------
+
+class NFT:
+    def __init__(self, name, token_id):
+        self.name = name
+        self.token_id = token_id
+
+    def info(self):
+        return {"name": self.name, "token_id": self.token_id}
+
+# Example NFT list
+nft_collection = [
+    NFT("NT_Seed", 1001),
+    NFT("NT_Alpha", 1002),
+    NFT("NT_Beta", 1003)
+]
+
+# ------------------------------
+# Section 5: Example Execution
+# ------------------------------
+
+if __name__ == "__main__":
+    # Initialize NT system and controller
+    nt_system = NothingTheory()
+    ai_controller = AIController(nt_system)
+
+    # Example cycles
+    for i in range(5):
+        ai_controller.run_cycle()
+        ai_controller.inject_input(0.5)  # Arbitrary input
+
+    # Display NFT info
+    for nft in nft_collection:
+        print(nft.info())
+
+    # Example Crypto usage
+    sample_text = "NT Alliance AI"
+    hashed = hash_string(sample_text)
+    encoded = encode_base64(sample_text)
+    decoded = decode_base64(encoded)
+    print(f"Hash: {hashed}\nEncoded: {encoded}\nDecoded: {decoded}")
